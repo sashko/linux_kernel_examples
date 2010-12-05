@@ -1,4 +1,4 @@
-obj-m := irq_handling.o
+obj-m := irq_handling.o irq_handling_mouse.o
 
 KERNELDIR += /lib/modules/$(shell uname -r)/build
 
