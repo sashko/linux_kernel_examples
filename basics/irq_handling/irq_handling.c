@@ -3,6 +3,10 @@
 #include <linux/moduleparam.h>
 #include <linux/interrupt.h>
 
+MODULE_AUTHOR("Oleksandr Kravchuk");
+MODULE_LICENSE("WTFPL");
+MODULE_DESCRIPTION("Linux kernel module skeleton");
+
 #define DRV_NAME "irq_handling"
 
 static int irq;
@@ -14,11 +18,11 @@ module_param(irq, int, 0644);
 MODULE_PARM_DESC(irq, "The IRQ of the network interface");
 
 
-static irqreturn_t my_interrupt(int irq, void *dev_id, struct pt_regs *regs)
+static irqreturn_t my_interrupt(int irq, void *dev_id)
 {
 	printk(KERN_DEBUG DRV_NAME ": Interupt!\n");
 
-	return IRQ_NONE;
+	return IRQ_HANDLED;
 }
 
 static int __init irq_init(void)
@@ -27,7 +31,7 @@ static int __init irq_init(void)
 
         if (request_irq(irq, &my_interrupt, IRQF_SHARED, interface, &irq)) {
 		printk(KERN_ERR DRV_NAME ": cannot register IRQ %d\n", irq);
-		return -EIO;
+		return -EBUSY;
         }
 
         printk(KERN_DEBUG DRV_NAME ": request on IRQ %d succeeded\n", irq);
@@ -45,8 +49,4 @@ void __exit irq_exit(void)
 
 module_init(irq_init);
 module_exit(irq_exit);
-
-MODULE_AUTHOR("Oleksandr Kravchuk");
-MODULE_LICENSE("WTFPL");
-MODULE_DESCRIPTION("Linux kernel module skeleton");
 

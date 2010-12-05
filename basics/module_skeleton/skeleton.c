@@ -1,7 +1,12 @@
 #include <linux/module.h>
 #include <linux/init.h>
 
+MODULE_AUTHOR("Oleksandr Kravchuk");
+MODULE_LICENSE("WTFPL");
+MODULE_DESCRIPTION("Linux kernel module skeleton");
+
 #define DRV_NAME "skeleton"
+
 
 static int __init skeleton_init(void)
 {
@@ -17,8 +22,4 @@ static void __exit skeleton_exit(void)
 
 module_init(skeleton_init);
 module_exit(skeleton_exit);
-
-MODULE_AUTHOR("Oleksandr Kravchuk");
-MODULE_LICENSE("WTFPL");
-MODULE_DESCRIPTION("Linux kernel module skeleton");
 
