@@ -1,11 +1,10 @@
 #include <linux/module.h>
 #include <linux/init.h>
-#include <linux/moduleparam.h>
 #include <linux/interrupt.h>
 
 MODULE_AUTHOR("Oleksandr Kravchuk");
 MODULE_LICENSE("WTFPL");
-MODULE_DESCRIPTION("Linux kernel module skeleton");
+MODULE_DESCRIPTION("Very simple example of IRQ handling");
 
 #define DRV_NAME "irq_handling"
 

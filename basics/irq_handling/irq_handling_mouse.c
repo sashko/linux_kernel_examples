@@ -4,7 +4,7 @@
 
 MODULE_AUTHOR("Oleksandr Kravchuk");
 MODULE_LICENSE("WTFPL");
-MODULE_DESCRIPTION("Linux kernel module skeleton");
+MODULE_DESCRIPTION("Very simple example of PS/2 mouse IRQ handling");
 
 #define DRV_NAME "irq_handling"
 #define PS2_MOUSE_IRQ 12
