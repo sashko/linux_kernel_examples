@@ -1,4 +1,4 @@
-obj-m := chr_pool_dev.o
+obj-m := chr_pool_dev.o full.o
 
 KERNELDIR += /lib/modules/$(shell uname -r)/build
 
