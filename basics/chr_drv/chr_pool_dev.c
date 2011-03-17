@@ -12,9 +12,13 @@ static int chrdev_release(struct inode *inode, struct file *filp);
 static int chrdev_open(struct inode *inode, struct file *filp);
 static ssize_t chrdev_read(struct file *filp, char __user *buf, size_t len, loff_t *offset);
 static ssize_t chrdev_write(struct file *filp, const char __user *buf, size_t len, loff_t *offset);
+static int chrdev_ioctl(struct inode *inode, struct file *filp, unsigned int cmd, unsigned long arg);
 
 #define DRV_NAME "chr_pool_dev"
 #define DEV_NAME "chrpooldev"
+#define MY_MACIG 'G'
+#define READ_IOCTL _IOR(MY_MACIG, 0, int)
+#define WRITE_IOCTL _IOW(MY_MACIG, 1, int)
 
 static int major = 0;
 static char msg[1024];
@@ -27,6 +31,7 @@ static struct file_operations fops = {
 	.release	=	chrdev_release,
 	.read		=	chrdev_read,
 	.write		=	chrdev_write,
+	.ioctl		=	chrdev_ioctl,
 	.owner		=	THIS_MODULE,
 };
 
@@ -91,6 +96,24 @@ static ssize_t chrdev_write(struct file *filp, const char __user *buf, size_t le
         printk(KERN_DEBUG DRV_NAME ": %s()\n", __FUNCTION__);
 
 	return simple_write_to_buffer(msg, sizeof(msg), offset, buf, len);
+}
+
+static int chrdev_ioctl(struct inode *inode, struct file *filp, unsigned int cmd, unsigned long arg)
+{
+	int len = sizeof(msg);
+
+	switch(cmd) {
+		case READ_IOCTL:
+			copy_to_user((char *)arg, msg, len);
+			break;
+		case WRITE_IOCTL:
+			copy_from_user(msg, (char *)arg, len);
+			break;
+		default:
+			return -ENOTTY;
+	}
+
+	return len;
 }
 
 module_init(chrdev_init);
