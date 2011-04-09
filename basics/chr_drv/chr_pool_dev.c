@@ -31,7 +31,7 @@ static struct file_operations fops = {
 	.release	=	chrdev_release,
 	.read		=	chrdev_read,
 	.write		=	chrdev_write,
-	.ioctl		=	chrdev_ioctl,
+	.unlocked_ioctl	=	chrdev_ioctl,
 	.owner		=	THIS_MODULE,
 };
 
