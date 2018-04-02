@@ -2,7 +2,7 @@
 #include <linux/module.h>
 
 MODULE_AUTHOR("Oleksandr Kravchuk");
-MODULE_LICENSE("WTFPL");
+MODULE_LICENSE("Dual MIT/GPL");
 MODULE_DESCRIPTION("Linux kernel module skeleton");
 
 #define DRV_NAME "skeleton"

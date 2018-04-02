@@ -3,7 +3,7 @@
 #include <linux/interrupt.h>
 
 MODULE_AUTHOR("Oleksandr Kravchuk");
-MODULE_LICENSE("WTFPL");
+MODULE_LICENSE("Dual MIT/GPL");
 MODULE_DESCRIPTION("Very simple example of IRQ handling");
 
 #define DRV_NAME "irq_handling"
@@ -26,24 +26,25 @@ static irqreturn_t my_interrupt(int irq, void *dev_id)
 
 static int __init irq_init(void)
 {
-        printk(KERN_DEBUG DRV_NAME ": %s()\n", __FUNCTION__);
+	printk(KERN_DEBUG DRV_NAME ": %s()\n", __FUNCTION__);
 
-        if (request_irq(irq, &my_interrupt, IRQF_SHARED, interface, &irq)) {
+	if (request_irq(irq, &my_interrupt, IRQF_SHARED, interface, &irq)) {
 		printk(KERN_ERR DRV_NAME ": cannot register IRQ %d\n", irq);
 		return -EBUSY;
-        }
+	}
 
-        printk(KERN_DEBUG DRV_NAME ": request on IRQ %d succeeded\n", irq);
+	printk(KERN_DEBUG DRV_NAME ": request on IRQ %d succeeded\n", irq);
 
-        return 0;
+	return 0;
 }
 
 void __exit irq_exit(void)
 {
-        printk(KERN_DEBUG DRV_NAME ": %s()\n", __FUNCTION__);
+	printk(KERN_DEBUG DRV_NAME ": %s()\n", __FUNCTION__);
 
-        free_irq(irq, &irq);
-        printk(KERN_DEBUG DRV_NAME ": freeing IRQ %d\n", irq);
+	free_irq(irq, &irq);
+
+	printk(KERN_DEBUG DRV_NAME ": freeing IRQ %d\n", irq);
 }
 
 module_init(irq_init);
