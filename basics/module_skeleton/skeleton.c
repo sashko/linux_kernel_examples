@@ -10,14 +10,14 @@ MODULE_DESCRIPTION("Linux kernel module skeleton");
 
 static int __init skeleton_init(void)
 {
-	printk(KERN_DEBUG DRV_NAME ": %s()\n", __FUNCTION__);
+	pr_debug("%s: %s\n", DRV_NAME, __func__);
 
 	return 0;
 }
 
 static void __exit skeleton_exit(void)
 {
-	printk(KERN_DEBUG DRV_NAME ": %s()\n", __FUNCTION__);
+	pr_debug("%s: %s\n", DRV_NAME, __func__);
 }
 
 module_init(skeleton_init);
